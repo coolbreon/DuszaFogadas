@@ -1,2 +1,3 @@
 <b> Dusza Árpád Emlékverseny </b> <br>
-Fogadó program megoldása
+Fogadó program megoldása <br>
+<b>'dev' ág:</b> aktívan változtatandó, teszt ág
