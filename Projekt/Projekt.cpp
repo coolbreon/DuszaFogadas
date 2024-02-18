@@ -4,9 +4,9 @@
 #include <fstream>
 #include <cmath>
 #include <algorithm>
-//CSAPATN…V - :::kettıspont:::
+//CSAPATN√âV - :::kett√µspont:::
 using namespace std;
-class Nevek               //oszt·lyok
+class Nevek               //oszt√°lyok
 {
 public:
     string nev;
@@ -18,7 +18,7 @@ public:
     string szervezo, jateknev;
     vector<string> alanyok;
     vector<string> esemenyek;
-    vector<vector<double>> darab; //z·r·s ut·n: szorzÛ
+    vector<vector<double>> darab; //z√°r√°s ut√°n: szorz√≥
     vector<vector<string>> vegeredmeny;
     bool lezart{ false };
 };
@@ -40,7 +40,7 @@ double szorzo(int darab);
 void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok);
 void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok);
 
-//BEM¡S”””””””””””””L
+//BEM√ÅS√ì√ì√ì√ì√ì√ì√ì√ì√ì√ì√ì√ì√ìL
 bool operator<(Nevek bal, Nevek jobb)
 {
     return bal.pont > jobb.pont;
@@ -65,7 +65,56 @@ int main()
 void menu_kiir(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
 {
     int input = 0;
-    while (input != 5) //ADDIG L…P‹NK VISSZA A MEN‹BE, AMÕG NEM A KIL…P…SRE NYOMUNK
+    while (input != 3) //ADDIG L√âP√úNK VISSZA A MEN√úBE, AM√çG NEM A KIL√âP√âSRE NYOMUNK
+    {
+        if (input == 1)
+        {
+            menu_kiir_fogado(jatekok, fogadasok, pontszamok);
+        }
+        else if (input == 2)
+            menu_kiir_szervezo(jatekok, fogadasok, pontszamok);
+
+
+        system("cls");
+        std::cout << "K√©rem v√°lasszon egy felhaszn√°l√≥ t√≠pust: \n";
+        std::cout << "[1] Fogad√≥\n";
+        std::cout << "[2] Szervez≈ë\n";
+        std::cout << "[3] Kil√©p√©s\n";
+        cout << "V√°lasszon men√ºpontot: ";
+        cin >> input;
+    }
+}
+
+void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
+{
+    int input = 0;
+    while (input != 4) //ADDIG L√âP√úNK VISSZA A MEN√úBE, AM√çG NEM A KIL√âP√âSRE NYOMUNK
+    {
+        if (input == 1)
+        {
+            jatekok.push_back(jatek_csinal());
+        }
+        else if (input == 2)
+            jatek_lezarasa(jatekok, fogadasok, pontszamok);
+
+        else if (input == 3)
+            lekerdezesek(pontszamok, fogadasok, jatekok);
+
+
+        system("cls");
+        std::cout << "[1] J√°t√©k l√©trehoz√°sa\n";
+        std::cout << "[2] J√°t√©k lez√°r√°sa\n";
+        std::cout << "[3] Lek√©rdez√©sek\n";
+        std::cout << "[4] Kil√©p√©s a f≈ëmen√ºbe (Felhaszn√°l√≥v√°lt√°s)\n";
+        cout << "V√°lasszon men√ºpontot: ";
+        cin >> input;
+    }
+}
+
+void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
+{
+    int input = 0;
+    while (input != 5) //ADDIG L√âP√úNK VISSZA A MEN√úBE, AM√çG NEM A KIL√âP√âSRE NYOMUNK
     {
         if (input == 1)
         {
@@ -80,34 +129,35 @@ void menu_kiir(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>
         else if (input == 4)
             lekerdezesek(pontszamok, fogadasok, jatekok);
 
+
         system("cls");
-        std::cout << "[1] J·tÈk lÈtrehoz·sa\n";
-        std::cout << "[2] Fogad·s lÈtrehoz·sa\n";
-        std::cout << "[3] J·tÈk lez·r·sa\n";
-        std::cout << "[4] LekÈrdezÈsek\n";
-        std::cout << "[5] KilÈpÈs\n";
-        cout << "V·lasszon men¸pontot: ";
+        std::cout << "[1] J√°t√©k l√©trehoz√°sa\n";
+        std::cout << "[2] Fogad√°s l√©trehoz√°sa\n";
+        std::cout << "[3] J√°t√©k lez√°r√°sa\n";
+        std::cout << "[4] Lek√©rdez√©sek\n";
+        std::cout << "[5] Kil√©p√©s a f≈ëmen√ºbe (Felhaszn√°l√≥v√°lt√°s)\n";
+        cout << "V√°lasszon men√ºpontot: ";
         cin >> input;
     }
 }
 
-Jatek jatek_csinal() //Sor: Alany, Oszlop: EsemÈny
+Jatek jatek_csinal() //Sor: Alany, Oszlop: Esem√©ny
 {
     Jatek sv;
-    cout << "Szervezı: ";
+    cout << "Szervez√µ: ";
     cin.get();
     getline(cin, sv.szervezo);
-    cout << "J·tÈk neve: ";
+    cout << "J√°t√©k neve: ";
     getline(cin, sv.jateknev);
     string sv2;
-    cout << "Alanyok: (nyomjon ENTER-t ha a list·nak vÈge)\n";
+    cout << "Alanyok: (nyomjon ENTER-t ha a list√°nak v√©ge)\n";
     getline(cin, sv2);
     while (sv2 != "")
     {
         sv.alanyok.push_back(sv2);
         getline(cin, sv2);
     }
-    cout << "EsemenyÈk: (nyomjon ENTER-t ha a list·nak vÈge\n";
+    cout << "Esemeny√©k: (nyomjon ENTER-t ha a list√°nak v√©ge\n";
     getline(cin, sv2);
     while (sv2 != "")
     {
@@ -121,7 +171,7 @@ Jatek jatek_csinal() //Sor: Alany, Oszlop: EsemÈny
         sv.darab[i].resize(sv.esemenyek.size());
     }
 
-    //F¡JLBA ÕR¡S
+    //F√ÅJLBA √çR√ÅS
     ofstream fki("jatekok.txt", std::ios::app);
     fki << sv.szervezo << ';' << sv.jateknev << ';' << sv.alanyok.size() << ';' << sv.esemenyek.size() << '\n';
     for (int i = 0; i < sv.alanyok.size(); i++)
@@ -133,7 +183,7 @@ Jatek jatek_csinal() //Sor: Alany, Oszlop: EsemÈny
         fki << sv.esemenyek[i] << '\n';
     }
     fki.close();
-    //F¡JLBA ÕR¡S V…GE
+    //F√ÅJLBA √çR√ÅS V√âGE
 
     return sv;
 }
@@ -143,7 +193,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 {
     Fogadas sv;
 
-    cout << "KÈrem v·lasszon az al·bbi, mÈg folyamatban levı j·tÈkok kˆz¸l!: (a sorsz·m megad·s·val)" << endl;
+    cout << "K√©rem v√°lasszon az al√°bbi, m√©g folyamatban lev√µ j√°t√©kok k√∂z√ºl!: (a sorsz√°m megad√°s√°val)" << endl;
     for (int i = 0; i < jatekok.size(); i++)
     {
         if (!jatekok[i].lezart)
@@ -156,30 +206,30 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     sv.jateknev = jatekok[sorsz - 1].jateknev;
 
     cin.get();
-    cout << "FogadÛ nÈv: ";
+    cout << "Fogad√≥ n√©v: ";
     getline(cin, sv.fogadonev);
     int i = 0;
-    while (i < pontszamok.size() && pontszamok[i].nev != sv.fogadonev) //elıfordult m·r ez a az ember fogadÛkÈnt?
+    while (i < pontszamok.size() && pontszamok[i].nev != sv.fogadonev) //el√µfordult m√°r ez a az ember fogad√≥k√©nt?
     {
         i++;
     }
-    if (i == pontszamok.size()) //ha mÈg nem, akkor hozz·adjuk, mint ˙j embert
+    if (i == pontszamok.size()) //ha m√©g nem, akkor hozz√°adjuk, mint √∫j embert
         pontszamok.push_back({ sv.fogadonev,100 });
 
-    cout << "Pontok: " << pontszamok[i].pont << '\n';  //fogadÛ ember aktu·lis pÈnze
+    cout << "Pontok: " << pontszamok[i].pont << '\n';  //fogad√≥ ember aktu√°lis p√©nze
 
 
-    cout << "Alany: ";     //fogad·s
+    cout << "Alany: ";     //fogad√°s
     getline(cin, sv.alany);
-    cout << "EsemÈny: ";
+    cout << "Esem√©ny: ";
     getline(cin, sv.esemeny);
 
-    cout << "V·rt ÈrtÈk: ";
+    cout << "V√°rt √©rt√©k: ";
     getline(cin, sv.vart_ertek);
-    cout << "TÈt: ";
+    cout << "T√©t: ";
     cin >> sv.tet_osszeg;
 
-    if (sv.tet_osszeg <= pontszamok[i].pont)     //ellenırizni, hogy van-e elÈg pontja
+    if (sv.tet_osszeg <= pontszamok[i].pont)     //ellen√µrizni, hogy van-e el√©g pontja
     {
 
         bool talalt = false;
@@ -187,19 +237,19 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 
         while (!talalt && j < fogadasok.size())
         {
-            if (fogadasok[j].fogadonev == sv.fogadonev && fogadasok[j].esemeny == sv.esemeny && fogadasok[j].alany == sv.alany) //ellenırizni, hogy fogadott-e m·r az adott ember az adott alany+esemeny parra
+            if (fogadasok[j].fogadonev == sv.fogadonev && fogadasok[j].esemeny == sv.esemeny && fogadasok[j].alany == sv.alany) //ellen√µrizni, hogy fogadott-e m√°r az adott ember az adott alany+esemeny parra
             {
                 talalt = true;
             }
             j++;
         }
-        if (!talalt) //HA MINDEN FELT…TEL TELJES‹L:
+        if (!talalt) //HA MINDEN FELT√âTEL TELJES√úL:
         {
             pontszamok[i].pont -= sv.tet_osszeg;
             fogadasok.push_back(sv);
             ofstream fki("fogadasok.txt", ios::app);
             fki << sv.fogadonev << ';' << sv.jateknev << ';' << sv.tet_osszeg << ';'
-                << sv.alany << ';' << sv.esemeny << ';' << sv.vart_ertek << '\n'; //F¡JLBA ÕR¡S
+                << sv.alany << ';' << sv.esemeny << ';' << sv.vart_ertek << '\n'; //F√ÅJLBA √çR√ÅS
             fki.close();
             int srsz1{}, srsz2{};
             while (srsz1 < jatekok[sorsz - 1].alanyok.size() && jatekok[sorsz - 1].alanyok[srsz1] != sv.alany)
@@ -214,7 +264,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
         }
         else
         {
-            cout << "Erre az alany+esemÈny p·rra a j·tÈkos m·r fogadott." << endl;
+            cout << "Erre az alany+esem√©ny p√°rra a j√°t√©kos m√°r fogadott." << endl;
             cin.get();
 
         }
@@ -223,12 +273,12 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     }
     else
     {
-        cout << "A j·tÈkosnak nincs elÈg pontja." << endl;
+        cout << "A j√°t√©kosnak nincs el√©g pontja." << endl;
         cin.get();
 
     }
 
-    cin.get(); //BEFAGYASZT¡S, HOGY OLVASHAT” LEGYEN A HIBA‹ZENET
+    cin.get(); //BEFAGYASZT√ÅS, HOGY OLVASHAT√ì LEGYEN A HIBA√úZENET
 
 
 
@@ -238,14 +288,14 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
 {
     string sv_szervezo, sv_jatek;
-    cout << "Szervezı neve: ";
+    cout << "Szervez√µ neve: ";
     cin.get();
     getline(cin, sv_szervezo);
 
-    cout << "J·tÈk neve: ";
+    cout << "J√°t√©k neve: ";
     getline(cin, sv_jatek);
 
-    //megkeresi szervezı neve, Ès j·tÈk neve -> esemÈnyeit Ès neveit
+    //megkeresi szervez√µ neve, √©s j√°t√©k neve -> esem√©nyeit √©s neveit
     int i = 0;
     while (i < jatekok.size() && jatekok[i].szervezo != sv_szervezo && jatekok[i].jateknev != sv_jatek)
         i++;
@@ -254,35 +304,35 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
     if (i < jatekok.size() && !(jatekok[i].lezart))
     {
 
-        //helyes adat, j·tÈk lez·r·sa
-        jatekok[i].vegeredmeny.resize(jatekok[i].alanyok.size());  //vÈgeredmÈny m·trix resize-ol·sa
+        //helyes adat, j√°t√©k lez√°r√°sa
+        jatekok[i].vegeredmeny.resize(jatekok[i].alanyok.size());  //v√©geredm√©ny m√°trix resize-ol√°sa
         for (int j = 0; j < jatekok[i].alanyok.size(); j++)
         {
             jatekok[i].vegeredmeny[j].resize(jatekok[i].esemenyek.size());
         }
 
-        //vÈgeredmÈnyek rˆgzÌtÈse Ès pontsz·mÌt·s
+        //v√©geredm√©nyek r√∂gz√≠t√©se √©s pontsz√°m√≠t√°s
         for (int a = 0; a < jatekok[i].alanyok.size(); a++)
         {
             for (int b = 0; b < jatekok[i].esemenyek.size(); b++)
             {
-                //rˆgzÌtÈs
-                cout << jatekok[i].alanyok[a] << " " << jatekok[i].esemenyek[b] << " eredmÈnye: ";
+                //r√∂gz√≠t√©s
+                cout << jatekok[i].alanyok[a] << " " << jatekok[i].esemenyek[b] << " eredm√©nye: ";
                 getline(cin, jatekok[i].vegeredmeny[a][b]);
 
-                //szorzÛ
+                //szorz√≥
                 jatekok[i].darab[a][b] = (round(100 * szorzo(jatekok[i].darab[a][b]))) / 100;
                 fki << jatekok[i].alanyok[a] << ';' << jatekok[i].esemenyek[b] << ';' << jatekok[i].vegeredmeny[a][b] << ';' << jatekok[i].darab[a][b] << '\n';
 
-                //pontsz·mÌt·s
-                //alany, esemÈny, v·rt ÈrtÈk Ès j·tÈk egyezÈse
-                //elsı alany, m·sodik esemÈny
+                //pontsz√°m√≠t√°s
+                //alany, esem√©ny, v√°rt √©rt√©k √©s j√°t√©k egyez√©se
+                //els√µ alany, m√°sodik esem√©ny
                 for (auto elem : fogadasok)
                 {
                     if (jatekok[i].alanyok[a] == elem.alany && jatekok[i].esemenyek[b] == elem.esemeny && elem.vart_ertek == jatekok[i].vegeredmeny[a][b] && jatekok[i].jateknev == elem.jateknev)
                     {
 
-                        //pontsz·m nˆvelÈse
+                        //pontsz√°m n√∂vel√©se
                         for (int k = 0; k < pontszamok.size(); k++)
                         {
                             if (pontszamok[k].nev == elem.fogadonev)
@@ -295,15 +345,15 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
             }
         }
 
-        //j·tÈk lez·r·sa
+        //j√°t√©k lez√°r√°sa
         jatekok[i].lezart = true;
         fki.close();
     }
 
     else
     {
-        //nem helyes adat, nem tud j·tÈkot lez·rni
-        cout << "Helytelen a szervezı neve vagy a j·tÈk neve! " << endl;
+        //nem helyes adat, nem tud j√°t√©kot lez√°rni
+        cout << "Helytelen a szervez√µ neve vagy a j√°t√©k neve! " << endl;
         cin.get();
         cin.get();
     }
@@ -311,10 +361,10 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
 }
 void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok)
 {
-    cout << "KÈrem, v·lasszon az al·bbi pontok kˆz¸l a sorsz·m megad·s·val: " << endl;
+    cout << "K√©rem, v√°lasszon az al√°bbi pontok k√∂z√ºl a sorsz√°m megad√°s√°val: " << endl;
     cout << 1 << ". :Ranglista" << endl;
-    cout << 2 << ". :J·tÈk statisztika" << endl;
-    cout << 3 << ". :Fogad·si statisztika" << endl;
+    cout << 2 << ". :J√°t√©k statisztika" << endl;
+    cout << 3 << ". :Fogad√°si statisztika" << endl;
     int sorsz;
     cin >> sorsz;
     if (sorsz == 1)
@@ -385,7 +435,7 @@ void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<
                     }
                     else
                     {
-                        cout << i + 1 << ". j·tÈk ˆssznyeremÈnye: " << 0 << endl;
+                        cout << i + 1 << ". j√°t√©k √∂ssznyerem√©nye: " << 0 << endl;
                     }
 
                 }
