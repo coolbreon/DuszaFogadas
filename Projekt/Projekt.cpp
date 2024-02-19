@@ -114,28 +114,16 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
 void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
 {
     int input = 0;
-    while (input != 5) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
+    while (input != 2) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
     {
         if (input == 1)
         {
-            jatekok.push_back(jatek_csinal());
-        }
-        else if (input == 2)
             fogadas_csinal(pontszamok, fogadasok, jatekok);
-
-        else if (input == 3)
-            jatek_lezarasa(jatekok, fogadasok, pontszamok);
-
-        else if (input == 4)
-            lekerdezesek(pontszamok, fogadasok, jatekok);
-
+        }
 
         system("cls");
-        std::cout << "[1] Játék létrehozása\n";
-        std::cout << "[2] Fogadás létrehozása\n";
-        std::cout << "[3] Játék lezárása\n";
-        std::cout << "[4] Lekérdezések\n";
-        std::cout << "[5] Kilépés a főmenübe (Felhasználóváltás)\n";
+        std::cout << "[1] Fogadás létrehozása\n";
+        std::cout << "[2] Kilépés a főmenübe (Felhasználóváltás)\n";
         cout << "Válasszon menüpontot: ";
         cin >> input;
     }
