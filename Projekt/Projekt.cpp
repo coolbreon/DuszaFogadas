@@ -1,24 +1,16 @@
-
 #include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
 #include <cmath>
 #include <algorithm>
-//CSAPATNÉV - :::kettõspont:::
+//CSAPATNÉV - :::kettőspont:::
 using namespace std;
 class Nevek               //osztályok
 {
 public:
     string nev;
     int pont{ 100 };
-};
-class Esemeny
-{
-public:
-    string ertek = "";
-    double szorzo = 0;
-    double hanyan = 0;
 };
 class Jatek
 {
@@ -29,7 +21,6 @@ public:
     vector<vector<double>> darab; //zárás után: szorzó
     vector<vector<string>> vegeredmeny;
     bool lezart{ false };
-    vector<vector<vector<Esemeny>>> esemenyter;
 };
 class Fogadas
 {
@@ -110,6 +101,9 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
             lekerdezesek(pontszamok, fogadasok, jatekok);
 
 
+
+
+
         system("cls");
         std::cout << "[1] Játék létrehozása\n";
         std::cout << "[2] Játék lezárása\n";
@@ -123,28 +117,19 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
 void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
 {
     int input = 0;
-    while (input != 5) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
+    while (input != 2) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
     {
         if (input == 1)
         {
-            jatekok.push_back(jatek_csinal());
-        }
-        else if (input == 2)
             fogadas_csinal(pontszamok, fogadasok, jatekok);
+        }
 
-        else if (input == 3)
-            jatek_lezarasa(jatekok, fogadasok, pontszamok);
 
-        else if (input == 4)
-            lekerdezesek(pontszamok, fogadasok, jatekok);
 
 
         system("cls");
-        std::cout << "[1] Játék létrehozása\n";
-        std::cout << "[2] Fogadás létrehozása\n";
-        std::cout << "[3] Játék lezárása\n";
-        std::cout << "[4] Lekérdezések\n";
-        std::cout << "[5] Kilépés a főmenübe (Felhasználóváltás)\n";
+        std::cout << "[1] Fogadás létrehozása\n";
+        std::cout << "[2] Kilépés a főmenübe (Felhasználóváltás)\n";
         cout << "Válasszon menüpontot: ";
         cin >> input;
     }
@@ -153,7 +138,7 @@ void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector
 Jatek jatek_csinal() //Sor: Alany, Oszlop: Esemény
 {
     Jatek sv;
-    cout << "Szervezõ: ";
+    cout << "Szervező: ";
     cin.get();
     getline(cin, sv.szervezo);
     cout << "Játék neve: ";
@@ -175,35 +160,9 @@ Jatek jatek_csinal() //Sor: Alany, Oszlop: Esemény
     }
 
     sv.darab.resize(sv.alanyok.size());
-    sv.esemenyter.resize(sv.alanyok.size());
     for (int i = 0; i < sv.darab.size(); i++)
     {
         sv.darab[i].resize(sv.esemenyek.size());
-        sv.esemenyter[i].resize(sv.esemenyek.size());
-    }
-    Esemeny s_esemeny;
-    for (int i = 0; i < sv.alanyok.size(); i++) //szervező megadja a lehetséges végkimeneteleket, szorzók automatikusan beállítva 1/p-re 
-    {
-        for (int j = 0; j < sv.esemenyek.size(); j++)
-        {
-            system("cls");
-
-            cout << "Adja meg a lehetséges végkimeneteleket minden alany-esemény párra vonatkozóan (legalább 2 végkimenetel páronként), enterrel elválasztva. Ezután nyomjon még egy entert!" << endl;
-            cout << "Alany: " << sv.alanyok[i] << endl;
-            cout << "Esemeny: " << sv.esemenyek[j] << endl;
-            getline(cin, s_esemeny.ertek);
-            while (s_esemeny.ertek != "")
-            {
-                sv.esemenyter[i][j].push_back(s_esemeny);
-                getline(cin, s_esemeny.ertek);
-            }
-            for (int k = 0; k < sv.esemenyter[i][j].size(); k++)
-            {
-                sv.esemenyter[i][j][k].szorzo = sv.esemenyter[i][j].size(); //hányszor 1/p??
-            }
-
-        }
-
     }
 
     //FÁJLBA ÍRÁS
@@ -228,7 +187,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 {
     Fogadas sv;
 
-    cout << "Kérem válasszon az alábbi, még folyamatban levõ játékok közül!: (a sorszám megadásával)" << endl; //játék választás
+    cout << "Kérem válasszon az alábbi, még folyamatban levő játékok közül!: (a sorszám megadásával)" << endl;
     for (int i = 0; i < jatekok.size(); i++)
     {
         if (!jatekok[i].lezart)
@@ -236,16 +195,15 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
             cout << i + 1 << ".: " << jatekok[i].jateknev << endl;
         }
     }
-    int jatek_index;
-    cin >> jatek_index;
-    jatek_index--;
-    sv.jateknev = jatekok[jatek_index].jateknev;
+    int sorsz;
+    cin >> sorsz;
+    sv.jateknev = jatekok[sorsz - 1].jateknev;
 
     cin.get();
     cout << "Fogadó név: ";
     getline(cin, sv.fogadonev);
     int i = 0;
-    while (i < pontszamok.size() && pontszamok[i].nev != sv.fogadonev) //elõfordult már ez a az ember fogadóként?
+    while (i < pontszamok.size() && pontszamok[i].nev != sv.fogadonev) //előfordult már ez a az ember fogadóként?
     {
         i++;
     }
@@ -260,36 +218,12 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     cout << "Esemény: ";
     getline(cin, sv.esemeny);
 
-    int alany_index = 0;
-    int esemeny_index = 0;
-    while (alany_index < jatekok[jatek_index].alanyok.size() && jatekok[jatek_index].alanyok[alany_index] != sv.alany)
-    {
-        alany_index++;
-    }
-    while (esemeny_index < jatekok[jatek_index].esemenyek.size() && jatekok[jatek_index].esemenyek[esemeny_index] != sv.esemeny)
-    {
-        esemeny_index++;
-    }
-    cout << "Kérem válasszon az alábbi értékek közül (gépelje be az értéket): " << endl; //választási lehetőségek megadása
-    for (int k = 0; k < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); k++)
-    {
-        cout << k + 1 << ". érték:   " << jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].ertek << "   szorzó: " << jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].szorzo << endl;
-    }
-
-
     cout << "Várt érték: ";
     getline(cin, sv.vart_ertek);
-
-    int ertek_index = 0; //tudjuk, hányadik értéket jelölte meg
-    while (ertek_index < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size() && jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].ertek != sv.vart_ertek)
-    {
-        ertek_index++;
-    }
-
     cout << "Tét: ";
     cin >> sv.tet_osszeg;
 
-    if (sv.tet_osszeg <= pontszamok[i].pont)     //ellenõrizni, hogy van-e elég pontja
+    if (sv.tet_osszeg <= pontszamok[i].pont)     //ellenőrizni, hogy van-e elég pontja
     {
 
         bool talalt = false;
@@ -297,7 +231,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 
         while (!talalt && j < fogadasok.size())
         {
-            if (fogadasok[j].fogadonev == sv.fogadonev && fogadasok[j].esemeny == sv.esemeny && fogadasok[j].alany == sv.alany) //ellenõrizni, hogy fogadott-e már az adott ember az adott alany+esemeny parra
+            if (fogadasok[j].fogadonev == sv.fogadonev && fogadasok[j].esemeny == sv.esemeny && fogadasok[j].alany == sv.alany) //ellenőrizni, hogy fogadott-e már az adott ember az adott alany+esemeny parra
             {
                 talalt = true;
             }
@@ -311,33 +245,16 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
             fki << sv.fogadonev << ';' << sv.jateknev << ';' << sv.tet_osszeg << ';'
                 << sv.alany << ';' << sv.esemeny << ';' << sv.vart_ertek << '\n'; //FÁJLBA ÍRÁS
             fki.close();
-
-            jatekok[jatek_index].darab[alany_index][esemeny_index]++;
-            double ossz = jatekok[jatek_index].darab[alany_index][esemeny_index]; // darab tömbből átvéve, hányan fogadtak összesen az alany-esemény párosra
-
-            double nevezo = 0;
-            double szamlalo = jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); //0,5?
-
-            jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].hanyan++;
-
-            for (int k = 0; k < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); k++)
+            int srsz1{}, srsz2{};
+            while (srsz1 < jatekok[sorsz - 1].alanyok.size() && jatekok[sorsz - 1].alanyok[srsz1] != sv.alany)
             {
-                if (jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan != 0)
-                {
-                    nevezo += ossz / (jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan);
-                }
-
+                srsz1++;
             }
-            for (int k = 0; k < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); k++)
+            while (srsz2 < jatekok[sorsz - 1].esemenyek.size() && jatekok[sorsz - 1].esemenyek[srsz2] != sv.esemeny)
             {
-                if (jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan != 0)
-                {
-                    jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].szorzo = (szamlalo / nevezo) * (ossz / jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan);
-                }
-
+                srsz2++;
             }
-
-
+            jatekok[sorsz - 1].darab[srsz1][srsz2]++;
         }
         else
         {
@@ -365,14 +282,14 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
 {
     string sv_szervezo, sv_jatek;
-    cout << "Szervezõ neve: ";
+    cout << "Szervező neve: ";
     cin.get();
     getline(cin, sv_szervezo);
 
     cout << "Játék neve: ";
     getline(cin, sv_jatek);
 
-    //megkeresi szervezõ neve, és játék neve -> eseményeit és neveit
+    //megkeresi szervező neve, és játék neve -> eseményeit és neveit
     int i = 0;
     while (i < jatekok.size() && jatekok[i].szervezo != sv_szervezo && jatekok[i].jateknev != sv_jatek)
         i++;
@@ -403,7 +320,7 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
 
                 //pontszámítás
                 //alany, esemény, várt érték és játék egyezése
-                //elsõ alany, második esemény
+                //első alany, második esemény
                 for (auto elem : fogadasok)
                 {
                     if (jatekok[i].alanyok[a] == elem.alany && jatekok[i].esemenyek[b] == elem.esemeny && elem.vart_ertek == jatekok[i].vegeredmeny[a][b] && jatekok[i].jateknev == elem.jateknev)
@@ -430,7 +347,7 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
     else
     {
         //nem helyes adat, nem tud játékot lezárni
-        cout << "Helytelen a szervezõ neve vagy a játék neve! " << endl;
+        cout << "Helytelen a szervező neve vagy a játék neve! " << endl;
         cin.get();
         cin.get();
     }
@@ -533,4 +450,3 @@ double szorzo(int darab)
 
     return sv_szorzo;
 }
-
