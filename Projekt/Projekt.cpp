@@ -79,8 +79,9 @@ void menu_kiir(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>
         if (input == 1)
         {
             menu_kiir_fogado(jatekok, fogadasok, pontszamok);
+
         }
-        else if (input == 2)
+        else if (input == 2) //itt
             menu_kiir_szervezo(jatekok, fogadasok, pontszamok);
 
 
@@ -123,28 +124,20 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
 void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
 {
     int input = 0;
-    while (input != 5) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
+    while (input != 2) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
     {
         if (input == 1)
         {
+            fogadas_csinal(pontszamok, fogadasok, jatekok);
             jatekok.push_back(jatek_csinal());
         }
-        else if (input == 2)
-            fogadas_csinal(pontszamok, fogadasok, jatekok);
 
-        else if (input == 3)
-            jatek_lezarasa(jatekok, fogadasok, pontszamok);
-
-        else if (input == 4)
-            lekerdezesek(pontszamok, fogadasok, jatekok);
 
 
         system("cls");
-        std::cout << "[1] Játék létrehozása\n";
-        std::cout << "[2] Fogadás létrehozása\n";
-        std::cout << "[3] Játék lezárása\n";
-        std::cout << "[4] Lekérdezések\n";
-        std::cout << "[5] Kilépés a főmenübe (Felhasználóváltás)\n";
+        std::cout << "[1] Fogadás létrehozása\n";
+        std::cout << "[2] Kilépés a főmenübe (Felhasználóváltás)\n";
+
         cout << "Válasszon menüpontot: ";
         cin >> input;
     }
@@ -398,8 +391,8 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
                 getline(cin, jatekok[i].vegeredmeny[a][b]);
 
                 //szorzó
-                jatekok[i].darab[a][b] = (round(100 * szorzo(jatekok[i].darab[a][b]))) / 100;
-                fki << jatekok[i].alanyok[a] << ';' << jatekok[i].esemenyek[b] << ';' << jatekok[i].vegeredmeny[a][b] << ';' << jatekok[i].darab[a][b] << '\n';
+                 // (régi szorzó: jatekok[i].darab[a][b] = (round(100 * szorzo(jatekok[i].darab[a][b]))) / 100;)
+                fki << jatekok[i].alanyok[a] << ';' << jatekok[i].esemenyek[b] << ';' << jatekok[i].vegeredmeny[a][b]; // << ';' << jatekok[i].darab[a][b] << '\n'; erre már nincs szükség
 
                 //pontszámítás
                 //alany, esemény, várt érték és játék egyezése
@@ -414,7 +407,7 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
                         {
                             if (pontszamok[k].nev == elem.fogadonev)
                             {
-                                pontszamok[k].pont += elem.tet_osszeg * jatekok[i].darab[a][b];
+                                pontszamok[k].pont += elem.tet_osszeg * jatekok[i].esemenyter[a][b][k].szorzo; //új szorzóval növeljük a pontszámot
                             }
                         }
                     }
@@ -486,34 +479,47 @@ void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<
 
 
 
-            int osszfogadas = 0;
-            int ossztet = 0;
-            int ossznyeremeny = 0;
+            double osszfogadas = 0;
+            double ossztet = 0;
+            double ossznyeremeny = 0;
+
+
             for (int j = 0; j < fogadasok.size(); j++)
             {
                 if (jatekok[i].jateknev == fogadasok[j].jateknev)
                 {
                     osszfogadas++;
                     ossztet += fogadasok[j].tet_osszeg;
-                    int k = 0;
-                    while (jatekok[i].alanyok[k] != fogadasok[j].alany)
-                    {
-                        k++;
-                    }
-                    int l = 0;
-                    while (jatekok[i].esemenyek[l] != fogadasok[j].esemeny)
-                    {
-                        l++;
-                    }
+
                     if (jatekok[i].lezart == true)
                     {
-                        ossznyeremeny += jatekok[i].darab[k][l] * fogadasok[j].tet_osszeg;
+                        int k = 0;
+                        while (jatekok[i].alanyok[k] != fogadasok[j].alany)
+                        {
+                            k++;
+                        }
+                        int l = 0;
+                        while (jatekok[i].esemenyek[l] != fogadasok[j].esemeny)
+                        {
+                            l++;
+                        }
+
+                        if (fogadasok[j].vart_ertek == jatekok[i].vegeredmeny[k][l])  //ellenőrizni, hogy nyert-e az adott fogadó a játékban
+                        {
+                            int m = 0;
+                            while (jatekok[i].esemenyter[k][l][m].ertek != fogadasok[j].vart_ertek && m < jatekok[i].esemenyter[k][l].size())
+                            {
+                                m++;
+                            }
+                            ossznyeremeny += jatekok[i].esemenyter[k][l][m].szorzo * fogadasok[j].tet_osszeg;
+                        }
+
 
                     }
-                    else
+                    /*else          ez nem felesleges?
                     {
                         cout << i + 1 << ". játék össznyereménye: " << 0 << endl;
-                    }
+                    }*/
 
                 }
             }
