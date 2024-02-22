@@ -102,15 +102,20 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
     {
         if (input == 1)
         {
-            jatekok.push_back(jatek_csinal());
+        jatekok.push_back(jatek_csinal());
+        cout << "A játék sikeresen rögzítve lett.\n";
+        cin.get();
         }
         else if (input == 2)
-            jatek_lezarasa(jatekok, fogadasok, pontszamok);
+        {
+        jatek_lezarasa(jatekok, fogadasok, pontszamok);
+        cout << "A játék sikeresen le lett zárva.\n";
+        cin.get();
+        }
 
         else if (input == 3)
             lekerdezesek(pontszamok, fogadasok, jatekok);
-
-
+            
         system("cls");
         std::cout << "[1] Játék létrehozása\n";
         std::cout << "[2] Játék lezárása\n";
@@ -131,7 +136,6 @@ void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector
             if (!jatekok.empty())
             {
             fogadas_csinal(pontszamok, fogadasok, jatekok);
-            jatekok.push_back(jatek_csinal());
             }
             else 
             {
@@ -255,9 +259,20 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     cout << "Pontok: " << pontszamok[i].pont << '\n';  //fogadó ember aktuális pénze
 
 
-    cout << "Alany: ";     //fogadás
+    cout << "Lehetséges alanyok:\n";
+    for (int i=0; i<jatekok[jatek_index].alanyok.size(); i++)
+    {
+        cout << jatekok[jatek_index].alanyok[i] << endl;
+    }
+    cout << "Választott alany: ";     //fogadás
     getline(cin, sv.alany);
-    cout << "Esemény: ";
+    
+    cout << "Lehetséges események:\n";
+    for (int i=0; i<jatekok[jatek_index].esemenyek.size(); i++)
+    {
+        cout << jatekok[jatek_index].esemenyek[i] << endl;
+    }
+    cout << "Választott esemény: ";
     getline(cin, sv.esemeny);
 
     int alany_index = 0;
@@ -336,7 +351,8 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
                 }
 
             }
-
+        cout << "A fogadás sikeresen rögzítve lett.\n";
+        cin.get();
 
         }
         else
