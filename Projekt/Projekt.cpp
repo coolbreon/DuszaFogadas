@@ -128,8 +128,16 @@ void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector
     {
         if (input == 1)
         {
+            if (!jatekok.empty())
+            {
             fogadas_csinal(pontszamok, fogadasok, jatekok);
             jatekok.push_back(jatek_csinal());
+            }
+            else 
+            {
+                cout << "Nincs játék, amelyre fogadni lehetne." << endl;
+                cin.get(); cin.get();
+            }
         }
 
 
@@ -220,7 +228,6 @@ Jatek jatek_csinal() //Sor: Alany, Oszlop: Esemény
 void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok)
 {
     Fogadas sv;
-
     cout << "Kérem válasszon az alábbi, még folyamatban levõ játékok közül!: (a sorszám megadásával)" << endl; //játék választás
     for (int i = 0; i < jatekok.size(); i++)
     {
@@ -347,7 +354,6 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
         cin.get();
 
     }
-
     cin.get(); //BEFAGYASZTÁS, HOGY OLVASHATÓ LEGYEN A HIBAÜZENET
 
 
