@@ -1,4 +1,4 @@
-
+                
 #include <iostream>
 #include <string>
 #include <vector>
@@ -18,7 +18,8 @@ class Esemeny
 public:
     string ertek = "";
     double szorzo = 0;
-    double hanyan = 0;
+    double hanyan = 1;
+    double mennyit = 0;
 };
 class Jatek
 {
@@ -204,7 +205,7 @@ Jatek jatek_csinal() //Sor: Alany, Oszlop: Esemény
             }
             for (int k = 0; k < sv.esemenyter[i][j].size(); k++)
             {
-                sv.esemenyter[i][j][k].szorzo = sv.esemenyter[i][j].size(); //hányszor 1/p??
+                sv.esemenyter[i][j][k].szorzo = sv.esemenyter[i][j].size(); //hányszor 1/p? ->kezdetben mindig 1/p
             }
 
         }
@@ -295,15 +296,42 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     cout << "Várt érték: ";
     getline(cin, sv.vart_ertek);
 
+
     int ertek_index = 0; //tudjuk, hányadik értéket jelölte meg
     while (ertek_index < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size() && jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].ertek != sv.vart_ertek)
     {
         ertek_index++;
     }
 
+    int szervezo_index=0;
+    string s_szervezo = jatekok[jatek_index].szervezo;
+    while (szervezo_index < pontszamok.size() && pontszamok[szervezo_index].nev!=s_szervezo)
+    {
+        szervezo_index++;
+    }
+    double bevetel = 0;
+   
+    double ossz = jatekok[jatek_index].darab[alany_index][esemeny_index]; // darab tömbből átvéve, hányan fogadtak összesen az alany-esemény párosra
+    double nevezo = 0;
+    double szamlalo = jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size() / 2.0; //0,5?
+
+    /*for (int k = 0; k < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); k++)
+    {
+        if (true)
+        {
+            
+            bevetel+= jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan
+        }
+        else
+        {
+            bevetel-=
+        }
+    }*/
+    double maxtet = pontszamok[szervezo_index].pont;
     cout << "Tét: ";
     cin >> sv.tet_osszeg;
-
+    
+    
     if (sv.tet_osszeg <= pontszamok[i].pont)     //ellenõrizni, hogy van-e elég pontja
     {
 
@@ -327,30 +355,27 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
                 << sv.alany << ';' << sv.esemeny << ';' << sv.vart_ertek << '\n'; //FÁJLBA ÍRÁS
             fki.close();
 
+            
             jatekok[jatek_index].darab[alany_index][esemeny_index]++;
-            double ossz = jatekok[jatek_index].darab[alany_index][esemeny_index]; // darab tömbből átvéve, hányan fogadtak összesen az alany-esemény párosra
-
-            double nevezo = 0;
-            double szamlalo = jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); //0,5?
-
             jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].hanyan++;
 
             for (int k = 0; k < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); k++)
             {
-                if (jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan != 0)
-                {
+               
+                
                     nevezo += ossz / (jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan);
-                }
+              
 
             }
+            
             for (int k = 0; k < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); k++)
             {
-                if (jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan != 0)
-                {
-                    jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].szorzo = (szamlalo / nevezo) * (ossz / jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan);
-                }
+                
+                    jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].szorzo = jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size() / 2.0+(szamlalo / nevezo) * (ossz / jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].hanyan);
+                
 
             }
+            //jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].mennyit += sv.tet_osszeg;
         cout << "A fogadás sikeresen rögzítve lett.\n";
         cin.get();
 
