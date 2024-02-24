@@ -13,8 +13,6 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
         else if (input == 2)
         {
         jatek_lezarasa(jatekok, fogadasok, pontszamok);
-        cout << "A játék sikeresen le lett zárva.\n";
-        cin.get();
         }
 
         else if (input == 3)

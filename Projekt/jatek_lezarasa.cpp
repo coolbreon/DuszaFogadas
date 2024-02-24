@@ -32,7 +32,26 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
             {
                 //rögzítés
                 cout << jatekok[i].alanyok[a] << " " << jatekok[i].esemenyek[b] << " eredménye: ";
+                cout << "Lehetséges eredmények:\n";
+                for (int j=0; j<jatekok[i].esemenyter[a][b].size(); j++)
+                {
+                    cout << "[" << jatekok[i].esemenyter[a][b][j].ertek << "]" << endl;
+                }
                 getline(cin, jatekok[i].vegeredmeny[a][b]);
+                bool benne=false;
+                while (benne==false)
+                {
+                    for (int j=0; j<jatekok[i].esemenyter[a][b].size(); j++)
+                    {
+                        if (jatekok[i].esemenyter[a][b][j].ertek==jatekok[i].vegeredmeny[a][b])
+                        benne=true;
+                    }
+                    if (benne==false)
+                    {
+                    cout << "Ez az eredmény nem lehetséges, kérem adjon meg újat:\n";
+                    getline(cin, jatekok[i].vegeredmeny[a][b]);
+                    }
+                }
 
                 //szorzó
                  // (régi szorzó: jatekok[i].darab[a][b] = (round(100 * szorzo(jatekok[i].darab[a][b]))) / 100;)
@@ -62,12 +81,13 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
         //játék lezárása
         jatekok[i].lezart = true;
         fki.close();
+        cout << "A játék sikeresen le lett zárva.\n";
+        cin.get();
     }
     else
     {
         //nem helyes adat, nem tud játékot lezárni
         cout << "Helytelen a szervezõ neve vagy a játék neve! " << endl;
-        cin.get();
         cin.get();
     }
 
