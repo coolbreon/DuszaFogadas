@@ -87,10 +87,10 @@ void menu_kiir(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>
 
 
         system("cls");
-        std::cout << "Kérem válasszon egy felhasználó típust: \n";
-        std::cout << "[1] Fogadó\n";
-        std::cout << "[2] Szervező\n";
-        std::cout << "[3] Kilépés\n";
+        cout << "Kérem válasszon egy felhasználó típust: \n";
+        cout << "[1] Fogadó\n";
+        cout << "[2] Szervező\n";
+        cout << "[3] Kilépés\n";
         cout << "Válasszon menüpontot: ";
         cin >> input;
     }
@@ -118,10 +118,10 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
             lekerdezesek(pontszamok, fogadasok, jatekok);
             
         system("cls");
-        std::cout << "[1] Játék létrehozása\n";
-        std::cout << "[2] Játék lezárása\n";
-        std::cout << "[3] Lekérdezések\n";
-        std::cout << "[4] Kilépés a főmenübe (Felhasználóváltás)\n";
+        cout << "[1] Játék létrehozása\n";
+        cout << "[2] Játék lezárása\n";
+        cout << "[3] Lekérdezések\n";
+        cout << "[4] Kilépés a főmenübe (Felhasználóváltás)\n";
         cout << "Válasszon menüpontot: ";
         cin >> input;
     }
@@ -134,7 +134,10 @@ void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector
     {
         if (input == 1)
         {
-            if (!jatekok.empty())
+            int i=0;
+            while (jatekok[i].lezart)
+                i++;
+            if (i<jatekok.size())
             {
             fogadas_csinal(pontszamok, fogadasok, jatekok);
             }
@@ -148,8 +151,8 @@ void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector
 
 
         system("cls");
-        std::cout << "[1] Fogadás létrehozása\n";
-        std::cout << "[2] Kilépés a főmenübe (Felhasználóváltás)\n";
+        cout << "[1] Fogadás létrehozása\n";
+        cout << "[2] Kilépés a főmenübe (Felhasználóváltás)\n";
 
         cout << "Válasszon menüpontot: ";
         cin >> input;
@@ -238,7 +241,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     {
         if (!jatekok[i].lezart)
         {
-            cout << i + 1 << ".: " << jatekok[i].jateknev << endl;
+            cout << "["<< i + 1 << "] " << jatekok[i].jateknev << endl;
         }
     }
     int jatek_index;
@@ -263,7 +266,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     cout << "Lehetséges alanyok:\n";
     for (int i=0; i<jatekok[jatek_index].alanyok.size(); i++)
     {
-        cout << jatekok[jatek_index].alanyok[i] << endl;
+        cout << "[" << jatekok[jatek_index].alanyok[i] << "]" << endl;
     }
     cout << "Választott alany: ";     //fogadás
     getline(cin, sv.alany);
@@ -271,7 +274,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     cout << "Lehetséges események:\n";
     for (int i=0; i<jatekok[jatek_index].esemenyek.size(); i++)
     {
-        cout << jatekok[jatek_index].esemenyek[i] << endl;
+        cout << "[" << jatekok[jatek_index].esemenyek[i] << "]" << endl;
     }
     cout << "Választott esemény: ";
     getline(cin, sv.esemeny);
@@ -289,7 +292,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
     cout << "Kérem válasszon az alábbi értékek közül (gépelje be az értéket): " << endl; //választási lehetőségek megadása
     for (int k = 0; k < jatekok[jatek_index].esemenyter[alany_index][esemeny_index].size(); k++)
     {
-        cout << k + 1 << ". érték:   " << jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].ertek << "   szorzó: " << jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].szorzo << endl;
+        cout << k + 1 << ". érték:   [" << jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].ertek << "]   szorzó: " << jatekok[jatek_index].esemenyter[alany_index][esemeny_index][k].szorzo << endl;
     }
 
 
@@ -466,7 +469,6 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
         jatekok[i].lezart = true;
         fki.close();
     }
-
     else
     {
         //nem helyes adat, nem tud játékot lezárni
@@ -479,13 +481,15 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
 void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok)
 {
     cout << "Kérem, válasszon az alábbi pontok közül a sorszám megadásával: " << endl;
-    cout << 1 << ". :Ranglista" << endl;
-    cout << 2 << ". :Játék statisztika" << endl;
-    cout << 3 << ". :Fogadási statisztika" << endl;
+    cout <<"["<< 1 << "] Ranglista" << endl;
+    cout <<"["<< 2 << "] Játék statisztika" << endl;
+    cout <<"["<< 3 << "] Fogadási statisztika" << endl;
     int sorsz;
     cin >> sorsz;
     if (sorsz == 1)
     {
+        if (!pontszamok.empty())
+        {
         sort(pontszamok.begin(), pontszamok.end());
         sorsz = 1;
 
@@ -493,31 +497,32 @@ void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<
         {
             if (round(pontszamok[i].pont) == round(pontszamok[i - 1].pont))
             {
-                cout << sorsz << ".: " << pontszamok[i - 1].nev << endl;
+                cout <<"["<< sorsz << "] " << pontszamok[i - 1].nev << endl;
             }
             if (round(pontszamok[i].pont) != round(pontszamok[i - 1].pont))
             {
-                cout << sorsz << ".: " << pontszamok[i - 1].nev << endl;
+                cout << "["<< sorsz << "] " << pontszamok[i - 1].nev << endl;
                 sorsz++;
             }
 
         }
         if (pontszamok.size() == 1)
         {
-            cout << 1 << ".: " << pontszamok[0].nev;
+            cout <<"["<< 1 << "] " << pontszamok[0].nev;
         }
         else
         {
             if (round(pontszamok[pontszamok.size() - 1].pont) == round(pontszamok[pontszamok.size() - 2].pont))
             {
-                cout << sorsz << ".: " << pontszamok[pontszamok.size() - 1].nev << endl;
+                cout <<"["<< sorsz << "] " << pontszamok[pontszamok.size() - 1].nev << endl;
             }
             else
             {
-                cout << sorsz + 1 << ".: " << pontszamok[pontszamok.size() - 1].nev << endl;
+                cout <<"["<< sorsz + 1 << "] " << pontszamok[pontszamok.size() - 1].nev << endl;
             }
         }
-
+        }
+        else cout << "Még senki sem fogadott.\n"; cin.get(); cin.get();
     }
     else if (sorsz == 2)
     {
