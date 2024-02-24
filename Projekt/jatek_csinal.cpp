@@ -11,14 +11,14 @@ Jatek jatek_csinal(vector<Nevek>& pontszamok) //Sor: Alany, Oszlop: Esemény
     cout << "Játék neve: ";
     getline(cin, sv.jateknev);
     string sv2;
-    cout << "Alanyok: (nyomjon ENTER-t ha a listának vége)\n";
+    cout << "Alanyok: (az alanyokat ENTERREL válassza el, majd nyomjon még egy ENTER-t ha a listának vége)\n";
     getline(cin, sv2);
     while (sv2 != "")
     {
         sv.alanyok.push_back(sv2);
         getline(cin, sv2);
     }
-    cout << "Esemenyék: (nyomjon ENTER-t ha a listának vége\n";
+    cout << "Esemenyék: (az eseményeket ENTERREL válassza el, majd nyomjon még egy ENTER-t ha a listának vége\n";
     getline(cin, sv2);
     while (sv2 != "")
     {

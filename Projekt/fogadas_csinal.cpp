@@ -131,6 +131,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 
 
             pontszamok[i].pont -= sv.tet_osszeg;
+            sv.akkori_szorzo = jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].szorzo;
             fogadasok.push_back(sv);
             ofstream fki("fogadasok.txt", ios::app);
             fki << sv.fogadonev << ';' << sv.jateknev << ';' << sv.tet_osszeg << ';'
@@ -168,6 +169,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 
             
             cout << "A fogadás sikeresen rögzítve lett.\n";
+            cin.get();
             cin.get();
 
         }

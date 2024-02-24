@@ -70,8 +70,8 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
                         {
                             if (pontszamok[k].nev == elem.fogadonev)
                             {
-                                pontszamok[k].pont += elem.tet_osszeg * jatekok[i].esemenyter[a][b][k].szorzo; //új szorzóval növeljük a pontszámot
-                            }
+                                pontszamok[k].pont += elem.tet_osszeg * elem.akkori_szorzo; //új szorzóval növeljük a pontszámot
+                            }  
                         }
                     }
                 }

@@ -13,7 +13,8 @@ class Nevek               //osztályok
 {
 public:
     string nev;
-    int pont{ 100 };
+    double pont{ 100 };
+    int sorsz = 0;
 };
 
 class Esemeny
@@ -41,6 +42,7 @@ class Fogadas
 public:
     string fogadonev, jateknev, alany, esemeny, vart_ertek;
     int tet_osszeg;
+    double akkori_szorzo;
 };
 
 

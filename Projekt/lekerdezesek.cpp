@@ -26,41 +26,32 @@ void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<
     {
         if (!pontszamok.empty())
         {
+        
         sort(pontszamok.begin(), pontszamok.end());
-        sorsz = 1;
+        pontszamok[0].sorsz = 1;
+        cout << "[" << pontszamok[0].sorsz << "] " << pontszamok[0].nev << " : " << round(pontszamok[0].pont) << "pont\n";
+
         for (int i = 1; i < pontszamok.size(); i++)
         {
             if (round(pontszamok[i].pont) == round(pontszamok[i - 1].pont))
             {
-                cout <<"["<< sorsz << "] " << pontszamok[i - 1].nev << " - " << round(pontszamok[i-1].pont) <<"pont\n";
+                pontszamok[i].sorsz = pontszamok[i - 1].sorsz;
+                cout <<"["<< pontszamok[i].sorsz << "] " << pontszamok[i].nev << " : " << round(pontszamok[i].pont) <<"pont\n";
             }
             if (round(pontszamok[i].pont) != round(pontszamok[i - 1].pont))
             {
-                cout << "["<< sorsz << "] " << pontszamok[i - 1].nev  << " - " << round(pontszamok[i-1].pont) <<"pont\n";
-                sorsz++;
+                pontszamok[i].sorsz = (pontszamok[i - 1].sorsz)+1;
+                cout << "["<< pontszamok[i].sorsz << "] " << pontszamok[i].nev  << " : " << round(pontszamok[i].pont) <<"pont\n";
+                
             }
         }
-        if (pontszamok.size() == 1)
-        {
-            cout <<"["<< 1 << "] " << pontszamok[0].nev << " - " << round(pontszamok[0].pont) <<"pont\n";
-        }
-        else
-        {
-            if (round(pontszamok[pontszamok.size() - 1].pont) == round(pontszamok[pontszamok.size() - 2].pont))
-            {
-                cout <<"["<< sorsz << "] " << pontszamok[pontszamok.size() - 1].nev << " - " << round(pontszamok[pontszamok.size()-1].pont) <<"pont\n";
-            }
-            else
-            {
-                cout <<"["<< sorsz + 1 << "] " << pontszamok[pontszamok.size() - 1].nev << " - " << round(pontszamok[pontszamok.size()-1].pont) <<"pont\n";
-            }
-        }
+        
         }
         else cout << "Még senki sem fogadott.\n"; cin.get(); cin.get();
     }
     else if (sorsz == 2)
     {
-        if (jatekok.size()==0)
+        if (jatekok.size() == 0)
         {
             cout << "Nincs még játék, amelyre fogadtak volna.";
             cin.get();
