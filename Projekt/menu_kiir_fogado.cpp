@@ -2,7 +2,7 @@
 void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok)
 {
     int input = 0;
-    while (input != 2) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
+    while (input != 3) //ADDIG LÉPÜNK VISSZA A MENÜBE, AMÍG NEM A KILÉPÉSRE NYOMUNK
     {
         if (input == 1)
         {
@@ -19,13 +19,16 @@ void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector
                 cin.get(); cin.get();
             }
         }
+        else if (input==2)
+           lekerdezesek(pontszamok, fogadasok, jatekok);
+
 
 
 
         system("cls");
         cout << "[1] Fogadás létrehozása\n";
-        cout << "[2] Kilépés a főmenübe (Felhasználóváltás)\n";
-
+        cout << "[2] Lekérdezések\n";
+        cout << "[3] Kilépés a főmenübe (Felhasználóváltás)\n";
         cout << "Válasszon menüpontot: ";
         cin >> input;
     }
