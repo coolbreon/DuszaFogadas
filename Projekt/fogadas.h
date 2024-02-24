@@ -22,6 +22,7 @@ public:
     string ertek = "";
     double szorzo = 0;
     double hanyan = 1;
+    double mennyit = 0;
     double aktualis_nyeremeny = 0;
 };
 class Jatek
