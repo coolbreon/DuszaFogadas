@@ -6,7 +6,7 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
     {
         if (input == 1)
         {
-        jatekok.push_back(jatek_csinal());
+        jatekok.push_back(jatek_csinal(pontszamok));
         cout << "A játék sikeresen rögzítve lett.\n";
         cin.get();
         }
