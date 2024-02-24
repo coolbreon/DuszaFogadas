@@ -1,10 +1,13 @@
 #include "fogadas.h"
-Jatek jatek_csinal() //Sor: Alany, Oszlop: Esemény
+Jatek jatek_csinal(vector<Nevek>& pontszamok) //Sor: Alany, Oszlop: Esemény
 {
+    Nevek s_jatekos;
     Jatek sv;
     cout << "Szervezõ: ";
     cin.get();
     getline(cin, sv.szervezo);
+    s_jatekos.nev = sv.szervezo;
+    pontszamok.push_back(s_jatekos);
     cout << "Játék neve: ";
     getline(cin, sv.jateknev);
     string sv2;
