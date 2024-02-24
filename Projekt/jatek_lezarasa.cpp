@@ -32,7 +32,7 @@ void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<N
             {
                 //rögzítés
                 cout << jatekok[i].alanyok[a] << " " << jatekok[i].esemenyek[b] << " eredménye: ";
-                cout << "Lehetséges eredmények:\n";
+                cout << "(Lehetséges eredmények)\n";
                 for (int j=0; j<jatekok[i].esemenyter[a][b].size(); j++)
                 {
                     cout << "[" << jatekok[i].esemenyter[a][b][j].ertek << "]" << endl;
