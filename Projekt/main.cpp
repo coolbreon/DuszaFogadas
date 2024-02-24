@@ -8,6 +8,8 @@
 int main()
 {
     setlocale(LC_ALL, "");
+    SetConsoleOutputCP(1252);
+    SetConsoleCP(1252);
     vector<Jatek> jatekok;
     vector<Fogadas> fogadasok;
     vector<Nevek> pontszamok;

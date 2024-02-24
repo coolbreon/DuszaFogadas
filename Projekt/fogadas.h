@@ -7,6 +7,7 @@
 #include <fstream>
 #include <cmath>
 #include <algorithm>
+#include <windows.h>
 
 using namespace std;
 class Nevek               //osztályok
