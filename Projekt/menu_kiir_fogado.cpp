@@ -7,7 +7,7 @@ void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector
         if (input == 1)
         {
             int i=0;
-            while (jatekok[i].lezart)
+            while (i<jatekok.size() && jatekok[i].lezart==true)
                 i++;
             if (i<jatekok.size())
             {
