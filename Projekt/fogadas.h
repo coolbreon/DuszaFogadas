@@ -15,13 +15,14 @@ public:
     string nev;
     int pont{ 100 };
 };
+
 class Esemeny
 {
 public:
     string ertek = "";
     double szorzo = 0;
     double hanyan = 1;
-    double mennyit = 0;
+    double aktualis_nyeremeny = 0;
 };
 class Jatek
 {
@@ -45,7 +46,7 @@ public:
 void menu_kiir(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
 void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
 void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
-Jatek jatek_csinal();
+Jatek jatek_csinal(vector<Nevek>& pontszamok);
 void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok);
 void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
 double szorzo(int darab);
