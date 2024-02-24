@@ -27,33 +27,31 @@ void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<
         {
         sort(pontszamok.begin(), pontszamok.end());
         sorsz = 1;
-
         for (int i = 1; i < pontszamok.size(); i++)
         {
             if (round(pontszamok[i].pont) == round(pontszamok[i - 1].pont))
             {
-                cout <<"["<< sorsz << "] " << pontszamok[i - 1].nev << endl;
+                cout <<"["<< sorsz << "] " << pontszamok[i - 1].nev << " - " << round(pontszamok[i-1].pont) <<"pont\n";
             }
             if (round(pontszamok[i].pont) != round(pontszamok[i - 1].pont))
             {
-                cout << "["<< sorsz << "] " << pontszamok[i - 1].nev << endl;
+                cout << "["<< sorsz << "] " << pontszamok[i - 1].nev  << " - " << round(pontszamok[i-1].pont) <<"pont\n";
                 sorsz++;
             }
-
         }
         if (pontszamok.size() == 1)
         {
-            cout <<"["<< 1 << "] " << pontszamok[0].nev;
+            cout <<"["<< 1 << "] " << pontszamok[0].nev << " - " << round(pontszamok[0].pont) <<"pont\n";
         }
         else
         {
             if (round(pontszamok[pontszamok.size() - 1].pont) == round(pontszamok[pontszamok.size() - 2].pont))
             {
-                cout <<"["<< sorsz << "] " << pontszamok[pontszamok.size() - 1].nev << endl;
+                cout <<"["<< sorsz << "] " << pontszamok[pontszamok.size() - 1].nev << " - " << round(pontszamok[pontszamok.size()-1].pont) <<"pont\n";
             }
             else
             {
-                cout <<"["<< sorsz + 1 << "] " << pontszamok[pontszamok.size() - 1].nev << endl;
+                cout <<"["<< sorsz + 1 << "] " << pontszamok[pontszamok.size() - 1].nev << " - " << round(pontszamok[pontszamok.size()-1].pont) <<"pont\n";
             }
         }
         }

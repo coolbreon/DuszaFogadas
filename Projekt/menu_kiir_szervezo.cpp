@@ -12,9 +12,27 @@ void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vect
         }
         else if (input == 2)
         {
-        jatek_lezarasa(jatekok, fogadasok, pontszamok);
+        if (jatekok.empty())
+        {
+            cout << "Nincs játék, amelyet le lehetne zárni.\n";
+            cin.get();
+            cin.get();
         }
-
+        else
+        { 
+        int i=0;
+        while (i<= jatekok.size() && jatekok[i].lezart==true)
+            i++;
+        if(i<jatekok.size()) 
+            jatek_lezarasa(jatekok, fogadasok, pontszamok);
+        else
+        {
+            cout << "Nincs játék, amelyet le lehetne zárni.\n";
+            cin.get();
+            cin.get();
+        }
+        }
+        }
         else if (input == 3)
             lekerdezesek(pontszamok, fogadasok, jatekok);
             
