@@ -114,6 +114,7 @@ void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<
             if (jatekok[i].lezart)
             cout << "Összes nyeremény: " << ossznyeremeny << " pont\n";
         }
+        cin.get(); cin.get();
     }
     else if (sorsz==3)
     {
