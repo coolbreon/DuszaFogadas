@@ -143,6 +143,7 @@ void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vecto
 
             jatekok[jatek_index].darab[alany_index][esemeny_index]++;
             jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].hanyan++;
+            jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].mennyit+=sv.tet_osszeg;
             
             jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].aktualis_nyeremeny += sv.tet_osszeg * jatekok[jatek_index].esemenyter[alany_index][esemeny_index][ertek_index].szorzo;
 
