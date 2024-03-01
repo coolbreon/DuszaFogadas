@@ -1,21 +1,24 @@
 #include "fogadas.h"
-Jatek jatek_csinal() //Sor: Alany, Oszlop: Esemény
+Jatek jatek_csinal(vector<Nevek>& pontszamok) //Sor: Alany, Oszlop: Esemény
 {
+    Nevek s_jatekos;
     Jatek sv;
     cout << "Szervezõ: ";
     cin.get();
     getline(cin, sv.szervezo);
+    s_jatekos.nev = sv.szervezo;
+    pontszamok.push_back(s_jatekos);
     cout << "Játék neve: ";
     getline(cin, sv.jateknev);
     string sv2;
-    cout << "Alanyok: (nyomjon ENTER-t ha a listának vége)\n";
+    cout << "Alanyok: (az alanyokat ENTERREL válassza el, majd nyomjon még egy ENTER-t ha a listának vége)\n";
     getline(cin, sv2);
     while (sv2 != "")
     {
         sv.alanyok.push_back(sv2);
         getline(cin, sv2);
     }
-    cout << "Esemenyék: (nyomjon ENTER-t ha a listának vége\n";
+    cout << "Esemenyék: (az eseményeket ENTERREL válassza el, majd nyomjon még egy ENTER-t ha a listának vége\n";
     getline(cin, sv2);
     while (sv2 != "")
     {

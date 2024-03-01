@@ -7,14 +7,17 @@
 #include <fstream>
 #include <cmath>
 #include <algorithm>
+#include <windows.h>
 
 using namespace std;
 class Nevek               //osztályok
 {
 public:
     string nev;
-    int pont{ 100 };
+    double pont{ 100 };
+    int sorsz = 0;
 };
+
 class Esemeny
 {
 public:
@@ -22,6 +25,7 @@ public:
     double szorzo = 0;
     double hanyan = 1;
     double mennyit = 0;
+    double aktualis_nyeremeny = 0;
 };
 class Jatek
 {
@@ -39,16 +43,16 @@ class Fogadas
 public:
     string fogadonev, jateknev, alany, esemeny, vart_ertek;
     int tet_osszeg;
+    double akkori_szorzo;
 };
 
 
 void menu_kiir(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
 void menu_kiir_szervezo(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
 void menu_kiir_fogado(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
-Jatek jatek_csinal();
+Jatek jatek_csinal(vector<Nevek>& pontszamok);
 void fogadas_csinal(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok);
 void jatek_lezarasa(vector<Jatek>& jatekok, vector<Fogadas>& fogadasok, vector<Nevek>& pontszamok);
-double szorzo(int darab);
 
 void lekerdezesek(vector<Nevek>& pontszamok, vector<Fogadas>& fogadasok, vector<Jatek>& jatekok);
 
